@@ -6,10 +6,11 @@ class Admin::CategoriesController < Admin::BaseController
     if params[:id].blank?
       @categories = Category.roots
     else
+      session[:root_id]  = params[:id]
       @root_category = Category.find params[:id]
       @categories = @root_category.children
     end
-    @categories.page(params[:page] || 1).per(params[:per_page] || 10).order(id: "desc")
+    @categories = @categories.page(params[:page] || 1).per(params[:per_page] || 10).order(weight: "desc")
   end
 
   def new
@@ -34,8 +35,13 @@ class Admin::CategoriesController < Admin::BaseController
   def update
     @category.attributes = category_params
     if @category.save
-      flash[:notice] = "修改成功"
-      redirect_to admin_categories_path
+      if @category.root?
+        flash[:notice] = "修改成功"
+        redirect_to admin_categories_path
+      else
+        flash[:notice] = "修改成功"
+        redirect_to admin_categories_path(id: session[:root_id])
+      end
     else
       render :new
     end
