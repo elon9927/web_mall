@@ -3,13 +3,13 @@
     <%= link_to "新建分类", new_admin_category_path, class: "btn btn-primary" %>
   </div>
 
-  <h1>
+  <h3>
     <% if @root_category %>
       分类:<%= @root_category.title %>(<%= @categories.count %>)
     <% else %>
       分类(<%= @categories.count %>)
     <% end -%>
-  </h1>
+  </h3>
 </div>
 
 <div>

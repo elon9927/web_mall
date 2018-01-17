@@ -2,11 +2,11 @@ class Admin::CategoriesController < Admin::BaseController
 
   before_action :find_category, only: [:edit, :update, :destroy]
   before_action :find_root_categories, only: [:new, :create, :edit, :update]
+  before_action :highlight_tab
   def index
     if params[:id].blank?
       @categories = Category.roots
     else
-      session[:root_id]  = params[:id]
       @root_category = Category.find params[:id]
       @categories = @root_category.children
     end
@@ -40,7 +40,7 @@ class Admin::CategoriesController < Admin::BaseController
         redirect_to admin_categories_path
       else
         flash[:notice] = "修改成功"
-        redirect_to admin_categories_path(id: session[:root_id])
+        redirect_to admin_categories_path(id: @category.parent_id)
       end
     else
       render :new
@@ -68,5 +68,9 @@ class Admin::CategoriesController < Admin::BaseController
 
   def find_root_categories
     @root_categories = Category.roots.order(id: "desc")
+  end
+
+  def highlight_tab
+    @tab = 'category'
   end
 end
