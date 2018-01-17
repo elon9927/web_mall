@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Demo商城</title>
+    <title>后台管理-Demo商城</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_link_tag 'admin', media: 'all' %>
     <%= yield :stylesheets %>
   </head>
 
   <body>
-    <%= render 'layouts/nav' %>
+    <%= render 'admin/layouts/nav' %>
     <div class="container">
       <% unless flash[:notice].blank? %>
         <div class="alert alert-info"><%= flash[:notice] %></div>
@@ -19,7 +19,7 @@
       <%= yield %>
     </div>
 
-    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'admin' %>
     <%= yield :javascripts %>
   </body>
 </html>
