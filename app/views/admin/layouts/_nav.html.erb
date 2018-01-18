@@ -16,7 +16,7 @@
       <ul class="nav navbar-nav">
         <li class="<%= 'active' if @tab == 'home' %>"><a href="<%= admin_root_path%>">Home <span class="sr-only">(current)</span></a></li>
         <li class="<%= 'active' if @tab == 'category' %>"><a href="<%= admin_categories_path%>">分类</a></li>
-        <li class="<%= 'active' if @tab == 'product' %>"><a href="#">产品</a></li>
+        <li class="<%= 'active' if @tab == 'product' %>"><a href="<%= admin_products_path%>">产品</a></li>
 
       </ul>
 
