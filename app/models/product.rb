@@ -17,6 +17,14 @@ class Product < ApplicationRecord
   belongs_to :category
 
   before_create :generate_uuid
+  has_many :images, -> { order(weight: 'desc') }, dependent: :destroy
+  has_one :main_picture, -> { order(weight: 'desc') },
+    class_name: :Image
+
+  scope :onshelf, -> { where(status: Status::On) }
+
+  accepts_nested_attributes_for :images, allow_destroy: true,
+    reject_if: proc{ |attrs| attrs.all? {|k, v| v.blank? }}
 
   module Status
     On = 'on'

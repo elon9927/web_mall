@@ -41,6 +41,8 @@ gem 'font-awesome-rails'
 gem 'sorcery'
 gem 'ancestry'
 gem 'kaminari'
+gem 'carrierwave-qiniu', '~> 1.1.5'
+gem "mini_magick"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

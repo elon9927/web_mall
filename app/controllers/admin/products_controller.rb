@@ -10,11 +10,15 @@ class Admin::ProductsController < Admin::BaseController
 
   def new
     @product = Product.new
+    @image = @product.images.build
   end
 
   def create
     @product = Product.new product_params
     if @product.save
+      params[:images]["attachment"].each do |image|
+        @product_image = @product.images.create!(attachment: image)
+      end
       flash[:notice] = "商品创建成功"
       redirect_to admin_products_path
     else
@@ -24,12 +28,18 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def edit
+    @image = @product.images.build
     render :new
   end
 
   def update
     @product.attributes = product_params
     if @product.save
+      unless params[:images].nil?
+        params[:images]["attachment"].each do |image|
+          @product_image = @product.images.create!(attachment: image)
+        end
+      end
       flash[:notice] = "商品修改成功"
       redirect_to admin_products_path
     else
@@ -49,7 +59,7 @@ class Admin::ProductsController < Admin::BaseController
 
   private
   def product_params
-    params.require(:product).permit!
+    params.require(:product).permit(:category_id, :title, :status, :amount, :msrp, :price, :description, images_attributes: [:id, :attachment, :product_id, :weight, :_destroy])
   end
 
   def find_product

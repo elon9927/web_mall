@@ -6,7 +6,7 @@
   <%= form_for @product,
     url: (@product.new_record? ? admin_products_path : admin_product_path(@product)),
     method: (@product.new_record? ? 'post' : 'put'),
-    html: { class: 'form-horizontal' } do |f| %>
+    html: { multipart: true, class: 'form-horizontal' } do |f| %>
 
     <% unless @product.errors.blank? %>
       <div class="alert alert-danger">
@@ -66,6 +66,24 @@
       <label for="msrp" class="col-sm-2 control-label">MSRP*:</label>
       <div class="col-sm-5">
         <%= f.text_field :msrp, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="attachment" class="col-sm-2 control-label">图片:</label>
+      <div class="col-sm-5">
+        <%= f.fields_for :images do |image_form| %>
+          <% image = image_form.object %>
+          <% if image.attachment? %>
+            <%= image_tag image.attachment.thumb.url %>
+            <%= image_form.label "权重" %>
+            <%= image_form.text_field :weight, class: "image_weight" %>
+            <%= image_form.label "删除" %>
+            <%= image_form.check_box :_destroy %>
+          <% else %>
+            <%= image_form.file_field :attachment, multiple: true,name: "images[attachment][]", class: "form-control" %>
+          <% end %>
+
+        <% end -%>
       </div>
     </div>
     <div class="form-group">

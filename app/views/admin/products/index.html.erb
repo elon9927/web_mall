@@ -12,6 +12,7 @@
   <table class="table table-striped">
     <tr>
       <th>ID</th>
+      <th>图片</th>
       <th>名称</th>
       <th>UUID/SKU</th>
       <th>MSRP</th>
@@ -24,6 +25,13 @@
     <% @products.each do |product| %>
       <tr>
         <td><%= product.id %></td>
+        <td>
+          <%  unless product.images.blank?%>
+            <% product.images.each do |image| %>
+              <%= image_tag image.attachment.thumb.url %>
+            <% end -%>
+          <% end -%>
+        </td>
         <td><%= product.title %></td>
         <td><%= product.uuid %></td>
         <td><%= product.msrp %></td>
