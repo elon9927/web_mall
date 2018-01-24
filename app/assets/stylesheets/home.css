@@ -25,7 +25,7 @@
 }
 
 .media {
-  &.shopping-cart-row {
+  &.cart-row {
     border-bottom: 1px solid #ccc;
 
     &:last-child {

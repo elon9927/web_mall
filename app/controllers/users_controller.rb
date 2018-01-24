@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.uuid = session[:user_uuid]
     if @user.save
       auto_login(@user)
       flash[:notice] = "注册成功"

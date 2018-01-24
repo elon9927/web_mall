@@ -31,7 +31,11 @@ class Product < ApplicationRecord
     Off = 'off'
   end
 
-
+  def self.search_by_key key
+    str = key.strip
+    str2 = '%'+str+'%'
+    where(["(title like ? or description like ?) and status = ?", str2, str2, 'on'])
+  end
   private
   def generate_uuid
     self.uuid = RandomCode.generate_product_uuid

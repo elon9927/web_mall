@@ -25,8 +25,8 @@
       <li>库存: <%= @product.amount %></li>
     </ul>
     <h3><strong>¥<%= @product.price %></strong> <span class="msrp">¥<%= @product.msrp %></span></h3>
-    <p>数量: <input type="text" name="amount" value="1" /></p>
-    <p><%= link_to "加入购物车", "#", class: "btn btn-danger btn-sm" %></p>
+    <p>数量: <input type="text" name="amount" value="<%= @cart.nil? ? 1 : @cart.amount %>" /></p>
+    <p><%= link_to add_to_cart @product %></p>
 
     <br />
     <br />
