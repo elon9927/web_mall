@@ -19,7 +19,7 @@
                 <p><input type="text" name="amount" value="<%= cart.amount %>" /></p>
                 <p>
                   <%= submit_tag "更新", class: "btn btn-default btn-xs" %>
-                  <%= link_to "删除", cart_path(cart), method: :delete, 'data-confirm': "不考虑一下了?", class: "btn btn-default btn-xs" %>
+                  <%= link_to "删除", cart_path(cart), method: :delete, 'data-confirm': "再考虑考虑?", class: "btn btn-default btn-xs" %>
                 </p>
               <% end -%>
             </div>
