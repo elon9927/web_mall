@@ -9,6 +9,12 @@ Rails.application.routes.draw do
     get :search, on: :collection
   end
   resources :carts
+  resources :orders
+  resources :addresses do
+    member do
+      put :set_default_address
+    end
+  end
 
   namespace :admin do
     root 'sessions#new'
