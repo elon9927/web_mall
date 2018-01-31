@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180129085141) do
+ActiveRecord::Schema.define(version: 20180130045006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,13 +59,21 @@ ActiveRecord::Schema.define(version: 20180129085141) do
     t.index ["product_id"], name: "index_images_on_product_id"
   end
 
-  create_table "orders", force: :cascade do |t|
-    t.integer "user_id"
+  create_table "line_items", force: :cascade do |t|
+    t.integer "order_id"
     t.integer "product_id"
-    t.integer "address_id"
-    t.string "order_no"
     t.integer "product_amount"
     t.decimal "total_money", precision: 10, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_line_items_on_order_id"
+    t.index ["product_id"], name: "index_line_items_on_product_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "address_id"
+    t.string "order_no"
     t.datetime "payment_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

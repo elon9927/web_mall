@@ -1,14 +1,12 @@
 class Order < ApplicationRecord
   validates :user_id, presence: true
-  validates :product_id, presence: true
   validates :address_id, presence: true
-  validates :product_amount, presence: true
-  validates :total_money, presence: true
   validates :order_no, uniqueness: true
 
   belongs_to :user
-  belongs_to :product
   belongs_to :address
+
+  has_many :line_items, dependent: :destroy
 
   before_create :gen_order_no
 
@@ -18,9 +16,9 @@ class Order < ApplicationRecord
 
     transaction do
       order_address = user.addresses.create!(address_attrs.merge("address_type" => Address::AddressType::Order))
+      order = user.orders.create!(address: order_address)
       carts.each do |cart|
-        user.orders.create!(
-          address: order_address,
+        order.line_items.create!(
           product: cart.product,
           product_amount: cart.amount,
           total_money: cart.product.price * cart.amount,
