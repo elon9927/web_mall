@@ -15,6 +15,6 @@ class OrdersController < ApplicationController
 
     address = current_user.addresses.find params[:address_id]
     order = Order.create_order_from_carts!(current_user, address, carts)
-    redirect_to payments_path
+    redirect_to generate_pay_payments_path(order_no: order.order_no)
   end
 end

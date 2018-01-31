@@ -34,6 +34,7 @@ class User < ApplicationRecord
   belongs_to :default_address, class_name: :Address
 
   has_many :orders
+  has_many :payments
 
   def username
     self.email.split('@').first
