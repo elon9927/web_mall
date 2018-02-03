@@ -1,0 +1,23 @@
+<h1>我的订单</h1>
+<div class="row">
+  <div class="container">
+    <% @orders.each do |order| %>
+      <% order.line_items.each do |line_item| %>
+        <div class="media cart-row">
+          <div class="media-left">
+            <%= image_tag line_item.product.main_picture.attachment.thumb.url, class: 'media-object', alt: line_item.product.title %>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">订单号: <%= order.order_no %></h4>
+            <p><%= line_item.product.title %></p>
+            <p>数量: <%= line_item.product_amount %> 价格: ¥<%= line_item.total_money %></p>
+            <p></span> <%= order.address.contact_name %> <%= order.address.cellphone %> <%= order.address.address %></p>
+            <p><span class="label <%= order.is_paid? ? 'label-success' : 'label-warning' %>"><%= order.is_paid? ? '已付款' : '未付款' %></p>
+          </div>
+        </div>
+      <% end -%>
+    <% end -%>
+
+    <%= paginate @orders %>
+  </div>
+</div>

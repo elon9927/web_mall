@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
     end
   end
   def fetch_common_data
+    #TODO 个人中心无需用到分类数据
     @categories = Category.tree_data
     @cart_count = Cart.by_user_uuid(session[:user_uuid]).count
   end
