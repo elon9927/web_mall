@@ -1,0 +1,22 @@
+<div>
+  <table class="table table-striped">
+    <tr>
+      <th>ID</th>
+      <th>用户名</th>
+      <th>邮箱</th>
+      <th></th>
+    </tr>
+
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.username %></td>
+        <td><%= user.email %></td>
+        <td align="right">
+        </td>
+      </tr>
+    <% end -%>
+  </table>
+
+  <%= paginate @users %>
+</div>

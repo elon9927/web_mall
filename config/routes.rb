@@ -39,10 +39,11 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    root 'sessions#new'
+    root 'home#index'
     resources :sessions
     resources :categories
     resources :products
+    delete '/logout' => 'sessions#destroy', as: :logout
 
   end
 

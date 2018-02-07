@@ -21,7 +21,12 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">欢迎你, 管理员</a></li>
+        <% if logged_in? %>
+          <li><a href="#">欢迎你, <%= current_user.username %></a></li>
+          <li><%= link_to "退出", admin_logout_path, method: :delete %></li>
+        <% else %>
+          <li><a href="<%= new_admin_session_path %>">登录</a></li>
+        <% end -%>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
