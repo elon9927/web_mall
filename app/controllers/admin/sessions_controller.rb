@@ -19,6 +19,7 @@ class Admin::SessionsController < Admin::BaseController
   def destroy
     logout
     flash[:notice] = "退出成功"
+    # cookis.delete :user
     redirect_to new_admin_session_path
   end
 

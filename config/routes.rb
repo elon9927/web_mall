@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root 'home#index'
 
-  resources :users
+  resources :users do
+    post :send_sms, on: :collection
+  end
   resources :sessions
   delete '/logout' => 'sessions#destroy', as: :logout
   resources :categories, only: [:show]
