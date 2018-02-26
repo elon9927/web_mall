@@ -33,7 +33,9 @@
           <li><a href="<%= new_user_path %>">注册</a></li>
         <% else %>
           <li><a href="#">欢迎你, <%= current_user.username %></a></li>
-          <li><%= link_to "退出", logout_path, method: :delete %></li>
+          <% if current_user.admin? || current_user.super_admin? %>
+            <li><%= link_to "商家后台", admin_root_path, target: :_blank %></li>
+          <% end -%>
         <% end -%>
 
         <li class="dropdown">
@@ -43,6 +45,9 @@
             <li><%= link_to "我的收货地址", dashboard_addresses_path %></li>
             <li role="separator" class="divider"></li>
             <li><%= link_to "个人信息", dashboard_password_path %></li>
+            <% if logged_in? %>
+              <li><%= link_to "退出", logout_path, method: :delete %></li>
+            <% end -%>
           </ul>
         </li>
       </ul>

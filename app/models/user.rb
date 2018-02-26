@@ -31,6 +31,8 @@ class User < ApplicationRecord
   has_many :orders
   has_many :payments
 
+  enum role:[:common, :admin, :super_admin]
+
   def username
     self.email.blank? ? self.cellphone : self.email.split('@').first
   end
