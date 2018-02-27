@@ -45,6 +45,11 @@ Rails.application.routes.draw do
     resources :sessions
     resources :categories
     resources :products
+    resources :users, only: [:index] do
+      member do
+        put :set_role
+      end
+    end
     delete '/logout' => 'sessions#destroy', as: :logout
 
   end

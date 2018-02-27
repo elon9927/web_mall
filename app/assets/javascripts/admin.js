@@ -3,3 +3,4 @@
 
 
 //= require bootstrap-sprockets
+//= require admin_user

@@ -22,7 +22,7 @@
 
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
-          <li><a href="#">欢迎你, <%= current_user.username %></a></li>
+          <li><a href="#">欢迎你, <%= current_user.super_admin? ? "超级管理员" :current_user.username %></a></li>
           <li><%= link_to "退出", admin_logout_path, method: :delete %></li>
         <% else %>
           <li><a href="<%= new_session_path %>">登录</a></li>

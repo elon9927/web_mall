@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @user.uuid = session[:user_uuid]
     cellphone = params[:user][:cellphone]
     token = params["token"]
-    if $redis.get("#{cellphone}_token_key") == token
+    if @is_using_email
       if @user.save
         auto_login(@user)
         flash[:notice] = "注册成功"
@@ -19,8 +19,18 @@ class UsersController < ApplicationController
         render :new
       end
     else
-      flash[:notice] = "验证码不正确或已过期"
-      render :new
+      if $redis.get("#{cellphone}_token_key") == token
+        if @user.save
+          auto_login(@user)
+          flash[:notice] = "注册成功"
+          redirect_to root_path
+        else
+          render :new
+        end
+      else
+        flash[:notice] = "验证码不正确或已过期"
+        render :new
+      end
     end
   end
 
